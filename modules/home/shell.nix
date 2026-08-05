@@ -1,10 +1,18 @@
-{ config, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   secretsFile = "${config.home.homeDirectory}/.local/share/home-manager-secrets/shell/opencode.env";
   loadSecrets = ''
     if [[ -r ${secretsFile} ]]; then
       source ${secretsFile}
     fi
+  '';
+  stackLimit = lib.optionalString pkgs.stdenv.isDarwin ''
+    ulimit -s 65500
   '';
 in
 {
@@ -13,7 +21,7 @@ in
   programs = {
     bash = {
       enable = true;
-      initExtra = loadSecrets;
+      initExtra = loadSecrets + stackLimit;
     };
 
     zsh = {
@@ -22,6 +30,7 @@ in
       syntaxHighlighting.enable = true;
       enableCompletion = true;
       envExtra = loadSecrets;
+      initContent = stackLimit;
     };
 
     zoxide.enable = true;

@@ -14,7 +14,6 @@
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
     vertex.url = "github:juspay/vertex";
-    kolu.url = "github:juspay/kolu";
   };
 
   outputs =

@@ -1,6 +1,6 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
-  xdg.desktopEntries.obsidian = {
+  xdg.desktopEntries.obsidian = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
     name = "Obsidian";
     genericName = "Knowledge Base";
     comment = "Knowledge base";

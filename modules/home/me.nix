@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   options.me = {
     username = lib.mkOption {
@@ -21,7 +26,7 @@
 
   config = {
     me = {
-      username = "guhan";
+      username = if pkgs.stdenv.isDarwin then "a.guhan" else "guhan";
       fullname = "A Guhan";
       email = "a.guhan@proton.me";
       juspayEmail = "a.guhan@juspay.in";

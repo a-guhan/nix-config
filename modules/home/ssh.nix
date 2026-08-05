@@ -36,6 +36,30 @@ in
         IdentityFile = "~/.ssh/a.guhan_p";
         IdentitiesOnly = true;
       };
+
+      "pc-bangalore" = {
+        User = "guhan";
+        HostName = "100.71.105.37";
+        ControlMaster = "auto";
+        ControlPath = "~/.ssh/control-%h-%p-%r";
+        ControlPersist = "no";
+        ExitOnForwardFailure = false;
+        IdentityFile = "~/.ssh/a.guhan";
+        LogLevel = "QUIET";
+        ConnectTimeout = 10;
+        Compression = true;
+        IPQoS = "lowdelay";
+        Ciphers = [
+          "aes128-ctr"
+          "aes192-ctr"
+          "aes256-ctr"
+        ];
+        MACs = [
+          "hmac-sha2-512"
+          "hmac-sha2-256"
+          "hmac-sha1"
+        ];
+      };
     };
   };
 }
