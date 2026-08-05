@@ -1,0 +1,19 @@
+{
+  imports = [
+    ./direnv.nix
+    ./gc.nix
+    ./ghostty.nix
+    ./git.nix
+    ./me.nix
+    ./nix-index.nix
+    ./nix.nix
+    ./nvim.nix
+    ./obsidian.nix
+    ./packages.nix
+    ./shell.nix
+    ./ssh.nix
+    ./tailscale.nix
+    ./tmux.nix
+    ./work.nix
+  ];
+}
