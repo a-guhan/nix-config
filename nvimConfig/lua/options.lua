@@ -16,6 +16,14 @@ opt.fillchars = { eob = " " }
 opt.cursorline = true
 opt.scrolloff = 8
 opt.sidescrolloff = 8
+
+-- Enable mouse support (required for smooth wheel scrolling)
+opt.mouse = "a"
+opt.mousescroll = "ver:4,hor:4"  -- Faster mouse wheel scroll steps
+
+-- Optional: nicer cursor shape in terminal
+opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
+
 opt.expandtab = true
 opt.tabstop = 4
 opt.shiftwidth = 4
