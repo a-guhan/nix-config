@@ -29,7 +29,11 @@ in
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
       enableCompletion = true;
-      envExtra = loadSecrets;
+      # Add ~/.local/bin to PATH so your ad-hoc scripts (like terminal-browser)
+      # are available. envExtra runs early in .zshenv (right after HM session vars).
+      envExtra = loadSecrets + ''
+        export PATH="$HOME/.local/bin:$PATH"
+      '';
       initContent = stackLimit;
     };
 
