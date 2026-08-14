@@ -11,6 +11,9 @@ let
       source ${secretsFile}
     fi
   '';
+  localBinPath = ''
+    export PATH="$HOME/.local/bin:$PATH"
+  '';
   stackLimit = lib.optionalString pkgs.stdenv.isDarwin ''
     ulimit -s 65500
   '';
@@ -29,11 +32,7 @@ in
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
       enableCompletion = true;
-      # Add ~/.local/bin to PATH so your ad-hoc scripts (like terminal-browser)
-      # are available. envExtra runs early in .zshenv (right after HM session vars).
-      envExtra = loadSecrets + ''
-        export PATH="$HOME/.local/bin:$PATH"
-      '';
+      envExtra = localBinPath + loadSecrets;
       initContent = stackLimit;
     };
 
