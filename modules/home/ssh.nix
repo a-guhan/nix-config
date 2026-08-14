@@ -4,12 +4,12 @@ let
 in
 {
   home.file = {
-    ".ssh/a.guhan".source = config.lib.file.mkOutOfStoreSymlink "${keyDirectory}/id_ed25519_juspay";
-    ".ssh/a.guhan.pub".source =
-      config.lib.file.mkOutOfStoreSymlink "${keyDirectory}/id_ed25519_juspay.pub";
-    ".ssh/a.guhan_p".source = config.lib.file.mkOutOfStoreSymlink "${keyDirectory}/id_ed25519_github";
-    ".ssh/a.guhan_p.pub".source =
-      config.lib.file.mkOutOfStoreSymlink "${keyDirectory}/id_ed25519_github.pub";
+    ".ssh/a.guhan".source = config.lib.file.mkOutOfStoreSymlink "${keyDirectory}/a.guhan";
+    ".ssh/a.guhan.pub".source = config.lib.file.mkOutOfStoreSymlink "${keyDirectory}/a.guhan.pub";
+    ".ssh/a.guhan_p".source = config.lib.file.mkOutOfStoreSymlink "${keyDirectory}/a.guhan_p";
+    ".ssh/a.guhan_p.pub".source = config.lib.file.mkOutOfStoreSymlink "${keyDirectory}/a.guhan_p.pub";
+    ".ssh/guhan".source = config.lib.file.mkOutOfStoreSymlink "${keyDirectory}/guhan";
+    ".ssh/guhan.pub".source = config.lib.file.mkOutOfStoreSymlink "${keyDirectory}/guhan.pub";
   };
 
   programs.ssh = {
@@ -44,7 +44,7 @@ in
         ControlPath = "~/.ssh/control-%h-%p-%r";
         ControlPersist = "no";
         ExitOnForwardFailure = false;
-        IdentityFile = "~/.ssh/a.guhan";
+        IdentityFile = "~/.ssh/guhan";
         LogLevel = "QUIET";
         ConnectTimeout = 10;
         Compression = true;

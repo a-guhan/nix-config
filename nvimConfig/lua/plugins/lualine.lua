@@ -7,7 +7,7 @@ return {
 
 	opts = {
 		options = {
-			theme = "nightfox",
+			theme = "catppuccin",
 			globalstatus = true,
 		},
 
