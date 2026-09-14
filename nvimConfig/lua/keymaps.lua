@@ -11,13 +11,59 @@ local function picker_with_opts(picker, picker_opts)
 	end
 end
 
-local function project_grep(case_sensitive, hidden)
+local function file_picker_opts(opts)
+	return vim.tbl_deep_extend("force", {
+		previewer = "builtin",
+		winopts = {
+			preview = {
+				layout = "horizontal",
+				horizontal = "right:50%",
+			},
+		},
+	}, opts or {})
+end
+
+local function pick_folder(prompt, on_select)
+	local rg = fn.exepath("rg")
+	local cmd = string.format(
+		"printf '.\\n'; %s --files --hidden -g '!.git' -g '!.jj' | "
+			.. 'awk -F/ \'{ path=""; for (i=1; i<NF; i++) { path=path (path == "" ? "" : "/") $i; print path } }\' | sort -u',
+		fn.shellescape(rg ~= "" and rg or "rg")
+	)
+
+	fzf.fzf_exec(cmd, {
+		cwd = fn.getcwd(),
+		prompt = prompt,
+		fzf_opts = { ["--no-multi"] = true },
+		actions = {
+			["enter"] = function(selected)
+				if not selected or not selected[1] then
+					return
+				end
+
+				local folder = fn.fnamemodify(selected[1], ":p")
+				if fn.isdirectory(folder) == 1 then
+					on_select(folder)
+				end
+			end,
+		},
+	})
+end
+
+local function find_files_in_folder()
+	pick_folder("Find files in folder: ", function(folder)
+		fzf.files(file_picker_opts({ cwd = folder, cwd_prompt = true }))
+	end)
+end
+
+local function project_grep(case_sensitive, hidden, cwd)
 	local case_flag = case_sensitive and "--case-sensitive" or "--ignore-case"
 
 	return function()
 		-- fzf-lua escapes the entered query, so only case handling varies here.
 		fzf.live_grep_native({
 			hidden = hidden or false,
+			cwd = cwd,
 			rg_opts = table.concat({
 				"--column",
 				"--line-number",
@@ -29,6 +75,12 @@ local function project_grep(case_sensitive, hidden)
 			}, " "),
 		})
 	end
+end
+
+local function live_grep_in_folder()
+	pick_folder("Search words in folder: ", function(folder)
+		project_grep(false, false, folder)()
+	end)
 end
 
 local function open_lazygit()
@@ -84,15 +136,22 @@ vim.api.nvim_create_user_command("LazyGit", open_lazygit, {
 map(
 	"n",
 	"<leader>ff",
-	picker_with_opts(fzf.files, {
-		-- One ripgrep scan works across a parent folder containing many repos.
-		-- Keep ignore-file support, but never descend into hidden paths.
-		cmd = fast_file_command,
-	}),
+	picker_with_opts(
+		fzf.files,
+		file_picker_opts({
+			-- One ripgrep scan works across a parent folder containing many repos.
+			-- Keep ignore-file support, but never descend into hidden paths.
+			cmd = fast_file_command,
+		})
+	),
 	vim.tbl_extend("force", opts, {
 		desc = "Find Files",
 	})
 )
+
+map("n", "<leader>fF", find_files_in_folder, {
+	desc = "Find Files in Folder",
+})
 
 map("n", "<leader>dff", picker_with_opts(fzf.files, { hidden = true }), {
 	desc = "Find Files (including dotfiles)",
@@ -115,6 +174,10 @@ map(
 		desc = "Live Grep (case-sensitive)",
 	})
 )
+
+map("n", "<leader>gF", live_grep_in_folder, {
+	desc = "Live Grep in Folder",
+})
 
 map("n", "<leader>dfg", project_grep(false, true), {
 	desc = "Live Grep (case-insensitive, including dotfiles)",
