@@ -7,35 +7,28 @@ return {
 
 	opts = {
 		options = {
-			theme = "catppuccin",
+			theme = "auto",
 			globalstatus = true,
 		},
 
 		sections = {
 			lualine_a = { "mode" },
 			lualine_b = { "branch" },
-			lualine_c = {},
-			lualine_x = {},
-			lualine_y = { "progress" },
-			lualine_z = { "location" },
-		},
-
-		winbar = {
-			lualine_a = {
+			lualine_c = {
 				{
 					"filename",
-					path = 0,
+					path = 1,
 					file_status = true,
 					newfile_status = true,
 					symbols = {
 						modified = " ●",
 						readonly = " ",
 					},
-					color = {
-						gui = "bold",
-					},
 				},
 			},
+			lualine_x = {},
+			lualine_y = { "progress" },
+			lualine_z = { "location" },
 		},
 	},
 }

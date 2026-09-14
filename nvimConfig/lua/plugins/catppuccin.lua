@@ -6,7 +6,7 @@ return {
 
 	opts = {
 		flavour = "mocha",
-		transparent_background = true,
+		transparent_background = false,
 		term_colors = true,
 		dim_inactive = {
 			enabled = false,
@@ -24,11 +24,11 @@ return {
 			telescope = true,
 			fzf = true,
 			neotree = true,
+			bufferline = true,
 		},
 	},
 
 	config = function(_, opts)
 		require("catppuccin").setup(opts)
-		vim.cmd.colorscheme("catppuccin")
 	end,
 }
