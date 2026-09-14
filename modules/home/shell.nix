@@ -21,6 +21,9 @@ in
 {
   home.shellAliases.tailscale2 = ''tailscale --socket="$HOME/.config/tailscale-guhan/tailscaled.sock"'';
 
+  # Equivalent to: export PATH="$HOME/.local/bin:$PATH" in both ~/.bashrc and ~/.zshrc
+  home.sessionPath = [ "${config.home.homeDirectory}/.local/bin" ];
+
   programs = {
     bash = {
       enable = true;
