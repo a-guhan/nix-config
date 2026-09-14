@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, pkgs, ... }:
 let
   keyDirectory = "${config.home.homeDirectory}/.local/share/home-manager-secrets/ssh";
 in
@@ -62,4 +62,14 @@ in
       };
     };
   };
+
+  # nixos-unified preserves replaced files as timestamped backups. These
+  # backups are redundant for the SSH config and key links managed above.
+  home.activation.cleanupSshBackups = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+    ${pkgs.findutils}/bin/find "$HOME/.ssh" \
+      -maxdepth 1 \
+      -type f \
+      -name '*.nixos-unified.*.bak' \
+      -delete
+  '';
 }
