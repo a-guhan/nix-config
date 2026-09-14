@@ -10,6 +10,7 @@
     ./nvim.nix
     ./obsidian.nix
     ./packages.nix
+    ./qutebrowser.nix
     ./shell.nix
     ./ssh.nix
     ./tailscale.nix
