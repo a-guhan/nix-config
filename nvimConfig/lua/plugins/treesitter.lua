@@ -12,9 +12,11 @@ local parsers = {
 	"json",
 	"yaml",
 	"toml",
+	"sql",
 
 	"markdown",
 	"markdown_inline",
+	"mermaid",
 
 	"bash",
 	"dockerfile",

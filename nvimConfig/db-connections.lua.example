@@ -1,0 +1,21 @@
+-- Copy this file to ~/.config/nvim/db-connections.lua and replace the values,
+-- or use :DBAddConnection from inside Neovim.
+-- This file is intentionally not managed by Nix so credentials stay local.
+return {
+  ["local-postgres"] = {
+    type = "postgresql",
+    host = "localhost",
+    port = "5432",
+    database = "mydb",
+    user = "user",
+    password = "password",
+  },
+  ["local-mysql"] = {
+    type = "mysql",
+    host = "localhost",
+    port = "3306",
+    database = "mydb",
+    user = "user",
+    password = "password",
+  },
+}
