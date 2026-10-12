@@ -129,6 +129,42 @@ map("n", "<leader>gg", open_lazygit, {
 	desc = "Open LazyGit",
 })
 
+map("n", "<C-a>", "^", {
+	desc = "Go to line start",
+})
+
+map("n", "<C-e>", "$", {
+	desc = "Go to line end",
+})
+
+map("n", "<leader>gb", function()
+	require("gitsigns").toggle_current_line_blame()
+end, {
+	desc = "Toggle Git Blame",
+})
+
+map("n", "<leader>gB", function()
+	require("gitsigns").blame_line({ full = true })
+end, {
+	desc = "Show Full Git Blame",
+})
+
+map("n", "<leader>db", "<cmd>DBUIToggle<CR>", {
+	desc = "Toggle Database UI",
+})
+
+map("n", "<leader>da", "<cmd>DBAddConnection<CR>", {
+	desc = "Add Database Connection",
+})
+
+map({ "n", "v" }, "<leader>ds", "<Plug>(DBUI_ExecuteQuery)", {
+	desc = "Execute SQL Query",
+})
+
+map("n", "<leader>dr", "<Plug>(DBUI_ToggleResultLayout)", {
+	desc = "Toggle DB Result Layout",
+})
+
 vim.api.nvim_create_user_command("LazyGit", open_lazygit, {
 	desc = "Open LazyGit for the current Git repository",
 })

@@ -21,6 +21,8 @@ in
       (pkgs.lib.makeBinPath [
         pkgs.tree-sitter
         pkgs.clang
+        pkgs.imagemagick
+        pkgs.ffmpeg
       ])
     ];
   };

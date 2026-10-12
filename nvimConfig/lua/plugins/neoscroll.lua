@@ -21,6 +21,18 @@ return {
 		end
 
 		local keymap = {
+			["<C-k>"] = function()
+				neoscroll.scroll(-3, { move_cursor = false, duration = 60, easing = "sine" })
+			end,
+			["<C-j>"] = function()
+				neoscroll.scroll(3, { move_cursor = false, duration = 60, easing = "sine" })
+			end,
+			["<C-h>"] = function()
+				vim.cmd("normal! zH")
+			end,
+			["<C-l>"] = function()
+				vim.cmd("normal! zL")
+			end,
 			["<C-u>"] = function()
 				scroll_fraction(-0.45, 110)
 			end,
@@ -35,9 +47,6 @@ return {
 			end,
 			["<C-y>"] = function()
 				neoscroll.scroll(-3, { move_cursor = false, duration = 60, easing = "sine" })
-			end,
-			["<C-e>"] = function()
-				neoscroll.scroll(3, { move_cursor = false, duration = 60, easing = "sine" })
 			end,
 			["<ScrollWheelUp>"] = function()
 				neoscroll.scroll(-4, { move_cursor = false, duration = 70, easing = "sine" })
